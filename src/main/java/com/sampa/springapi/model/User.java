@@ -1,13 +1,18 @@
 package com.sampa.springapi.model;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
 	
 	public User() {
@@ -29,6 +34,12 @@ public class User {
 	private String username;
 	private String email;
 	private String password;
+	
+	@ManyToMany
+	@JoinTable(name = "user_roles",
+			joinColumns = @JoinColumn(name = "user_id"),
+			inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private List<Role> roles;
 	public Long getId() {
 		return id;
 	}

@@ -1,12 +1,15 @@
 package com.sampa.springapi.model;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -29,8 +32,8 @@ public class Role {
 	
 	private String name;
 	
-	@ManyToMany(mappedBy = "roles")
-	private List<User> user;
+	@OneToMany(mappedBy = "role")
+	private Set<UserRole> userRoles = new HashSet<>();
 
 	public Long getId() {
 		return id;

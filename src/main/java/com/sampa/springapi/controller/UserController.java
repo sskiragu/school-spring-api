@@ -35,6 +35,7 @@ public class UserController {
 	
 	@PostMapping("/users")
 	public User createUser(@RequestBody User user) {
+		System.out.println("==========" + user.getUsername() + "===============");
 		return userService.createUser(user);
 	}
 	

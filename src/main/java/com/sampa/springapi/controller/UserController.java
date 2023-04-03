@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -23,17 +24,19 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	@PostAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/users")
 	public List<User> getUsers() {
 		return userService.getAllUsers();
 	}
 	
+	@PostAuthorize("hasRole('ROLE_STUDENT')")
 	@GetMapping("/users/{id}")
 	public User getUserById(@PathVariable Long id) {
 		return userService.getUserByid(id);
 	}
 	
-	@PostMapping("/users")
+	@PostMapping("/users/new")
 	public User createUser(@RequestBody User user) {
 		System.out.println("==========" + user.getUsername() + "===============");
 		return userService.createUser(user);

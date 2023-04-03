@@ -45,7 +45,7 @@ public class UserRoleController {
 		return userRoleService.getUserRoleByid(id);
 	}
 	
-	@PostMapping("/user-roles")
+	@PostMapping("/user-roles/new")
 	public UserRole createUserRole(@RequestBody Map<String, Long> request) {
 		Long userId = request.get("user_id");
 	    Long roleId = request.get("role_id");

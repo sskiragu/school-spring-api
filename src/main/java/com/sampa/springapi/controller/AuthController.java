@@ -30,18 +30,11 @@ public class AuthController {
 	
 	@PostMapping("/login")
 	public String login(@RequestBody AuthRequest authRequest) {
-		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
-		
-		if (authentication.isAuthenticated()) {
-			return jwtService.generateToken(authRequest.getUsername());
-		}else {
-			throw new UsernameNotFoundException("Invalid credeentials");
-		}
+		return authService.login(authRequest);
 	}
 	
 	@PostMapping("/signup")
 	public User signup(@RequestBody User user) {
-		System.out.println("Testing here" + user);
 		return authService.signup(user);
 	}
 }

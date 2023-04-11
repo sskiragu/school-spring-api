@@ -33,8 +33,10 @@ public class AuthServiceImpl implements AuthService{
 	public String login(AuthRequest authRequest) {
 		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
 		
+		User user = authRepository.findByUsername(authRequest.getUsername())
+		        .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 		if (authentication.isAuthenticated()) {
-			return jwtService.generateToken(authRequest.getUsername());
+			return jwtService.generateToken(authRequest.getUsername(), user.getId());
 		}else {
 			throw new UsernameNotFoundException("Invalid credentials");
 		}

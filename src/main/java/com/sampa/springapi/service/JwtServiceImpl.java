@@ -24,6 +24,15 @@ public class JwtServiceImpl implements JwtService {
 	public String extractUsername(String token) {
 		return extractClaim(token, Claims::getSubject);
 	}
+	
+//	@Override
+//	public String extractUserId(String token) {
+//	    return extractClaim(token, Claims::getSubject);
+//	}
+	@Override
+	public Integer extractUserId(String token) {
+	    return (Integer) extractAllClaims(token).get("userId");
+	}
 
 	@Override
 	public Date extractExpiration(String token) {
@@ -51,9 +60,11 @@ public class JwtServiceImpl implements JwtService {
 	}
 
 	@Override
-	public String generateToken(String userName) {
+	public String generateToken(String userName, Long userId) {
 		Map<String, Object> claims = new HashMap<>();
-
+		
+		claims.put("userId", userId);
+		
 		return createToken(claims, userName);
 	}
 

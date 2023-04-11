@@ -10,21 +10,19 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.sampa.springapi.model.User;
 
-public class UserInfoUserDetails implements UserDetails{
+public class UserInfoUserDetails implements UserDetails {
 	
+	private Long id;
 	private String username;
 	private String password;
 	private List<GrantedAuthority> grantedAuthorities;
-	
-	
-	
 
 	public UserInfoUserDetails(User user) {
+		id = user.getId();
 		username = user.getUsername();
 		password = user.getPassword();
 		grantedAuthorities = user.getUserRoles().stream()
-                .map(userRole -> new SimpleGrantedAuthority(userRole.getRole().getName()))
-                .collect(Collectors.toList());
+				.map(userRole -> new SimpleGrantedAuthority(userRole.getRole().getName())).collect(Collectors.toList());
 	}
 
 	@Override
@@ -60,6 +58,10 @@ public class UserInfoUserDetails implements UserDetails{
 	@Override
 	public boolean isEnabled() {
 		return true;
+	}
+
+	public Long getId() {
+		return id;
 	}
 
 }

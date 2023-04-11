@@ -44,7 +44,7 @@ public class SecurityConfig {
 	   
 	   http.csrf().disable()
 	   		.authorizeHttpRequests((authorize) -> authorize
-	   				.requestMatchers("/signup", "/roles/new", "/user-roles/new", "/login").permitAll()
+	   				.requestMatchers("/signup","/login").permitAll()
 	   				.anyRequest().authenticated()
 	   				).httpBasic(Customizer.withDefaults())
 	   		.sessionManagement()
